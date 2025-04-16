@@ -21,6 +21,7 @@ npm create vite@latest my-project-name -- --template react-router
 npm install @mui/material @emotion/react @emotion/styled
 npm install @mui/material @mui/styled-engine-sc styled-components
 npm install @mui/icons-material
+npm isntall axios
 ```
 
 add to link component in root.tsx

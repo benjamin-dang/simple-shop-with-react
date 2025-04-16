@@ -8,21 +8,8 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import { CssBaseline } from "@mui/material";
+import { CssBaseline, Box } from "@mui/material";
 import { Header } from "./Components/Header";
-
-/*
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-/>
-<link
-  rel="stylesheet"
-  href="https://fonts.googleapis.com/icon?family=Material+Icons"
-/>
-*/
 
 export const links: Route.LinksFunction = () => [
   {
@@ -54,8 +41,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <CssBaseline />
-        <Header />
-        {children}
+        <Box sx={{ px: 5, py: 5 }}>
+          <Header />
+        </Box>
+        <Box sx={{ px: 5 }}>
+          {children}
+        </Box>
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -63,8 +54,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+import ProductsProvider from "./Context/ProductsContext";
+
 export default function App() {
-  return <Outlet />;
+  return (
+    <ProductsProvider>
+      <Outlet />
+    </ProductsProvider>
+  )
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
