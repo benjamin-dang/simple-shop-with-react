@@ -6,6 +6,7 @@ export const ProductsContext = createContext(null);
 const initialState = {
     products: [''],
     loaded: false,
+    sortedBy: 'default',
 }
 
 

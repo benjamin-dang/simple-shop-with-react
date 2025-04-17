@@ -1,20 +1,12 @@
-import { Grid, Typography, Card, CardMedia, CardContent, CardActionArea, CardActions, Box } from "@mui/material";
-import { useEffect, useState, useContext } from "react";
-import axios from "axios";
-
-import { ProductsContext } from "../Context/ProductsContext";
+import { useEffect, useContext } from "react";
+import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, Box } from "@mui/material";
+import { ProductsContext } from "~/Context/ProductsContext";
 import { PRODUCTS_ACTION_TYPES } from "~/Reducer/productsRedcuer";
 
-export const client = axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    timeout: 3000,
-    headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-    }
-})
+import { client } from "~/Pages/HomePage";
 
-const HomePage = () => {
+
+const ProductsPage = () => {
     const { products, dispatchProducts } = useContext(ProductsContext);
 
     useEffect(() => {
@@ -42,10 +34,10 @@ const HomePage = () => {
     }, [])
 
     return (
-        <Grid container alignItems={'center'} direction={'column'}>
+        <Grid container direction={'column'} sx={{ px: 2 }}>
             <Grid>
-                <Typography variant="h4" component='h1' gutterBottom flexGrow={1}>
-                    Welcome to this Awesome E-commerce Store
+                <Typography variant="h4" component='h1' gutterBottom flexGrow={1} >
+                    Browser through our products
                 </Typography>
             </Grid>
             <Grid>
@@ -53,20 +45,27 @@ const HomePage = () => {
                     We have a wide range of products for you to explore
                 </Typography>
             </Grid>
-            <Grid container alignItems={'center'} justifyContent={'center'} sx={{my: 5}}>
+            <Grid container alignItems={'center'} sx={{ my: 5 }}>
                 {products.products.map((product, index) => {
-                    if (index > 2) return;
                     return (
                         <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
                             <Card sx={{ my: 2, mx: 1 }}>
                                 <CardActionArea >
-                                    <CardMedia
-                                        component={'img'}
-                                        src={product.image}
-                                        alt={product.title}
-                                        height={240}
-                                        sx={{ objectFit: 'contain' }}
-                                    />
+                                    <Box position={'relative'}>
+                                        <CardMedia
+                                            component={'img'}
+                                            src={product.image}
+                                            alt={product.title}
+                                            height={240}
+                                            sx={{ objectFit: 'contain' }}
+                                        />
+                                        <Box position={'absolute'} top={50} bgcolor={'red'} color={'white'}>
+                                            <Typography variant="h6" component={'div'} sx={{ px: 1}}>
+                                                {product.price}$
+                                            </Typography>
+
+                                        </Box>
+                                    </Box>
                                     <CardContent>
                                         <Typography gutterBottom>
                                             {product.title}
@@ -78,13 +77,8 @@ const HomePage = () => {
                     )
                 })}
             </Grid>
-            <Grid>
-                <Typography variant="h6" component='h2' gutterBottom flexGrow={1}>
-                    Check out our latest products
-                </Typography>
-            </Grid>
         </Grid>
     )
 }
 
-export default HomePage;
+export default ProductsPage

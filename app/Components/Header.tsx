@@ -1,7 +1,7 @@
-import { AppBar, Toolbar, Typography, Box, Grid, TextField, InputBase } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box, Grid, TextField, InputBase, Button } from "@mui/material";
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from '@mui/icons-material/Search';
-
+import { NavLink, useLocation } from "react-router";
 
 const menueItems = [
     {
@@ -20,8 +20,9 @@ const menueItems = [
         name: 'Cart',
         href: '/cart'
     },
-
 ]
+
+
 const Search = styled('div')(({ theme }) => ({
     flexGrow: 5,
     position: 'relative',
@@ -30,7 +31,7 @@ const Search = styled('div')(({ theme }) => ({
     '&:hover': {
         backgroundColor: alpha(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(10),
+    marginRight: theme.spacing(2),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -63,10 +64,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const Header = () => {
+
+    const location = useLocation();
+
     return (
         <AppBar position="sticky" sx={{ borderRadius: 50 }} >
             <Toolbar>
-                <Typography variant="h5" component='div' sx={{ flexGrow: 1 }}>
+                <Typography variant="h5" component='div' sx={{ flexGrow: 0, mr: 2 }}>
                     Simple Shop
                 </Typography>
                 {menueItems.map((item, index) => {
@@ -83,8 +87,18 @@ const Header = () => {
                                         inputProps={{ 'aria-label': 'search' }}
                                     />
                                 </Search>
-                                :
-                                <Typography key={index} sx={{ flexGrow: 1 }} variant="h6">{item.name}</Typography>
+                                : location.pathname === item.href ?
+                                    <NavLink to={item.href} key={index} style={{ color: 'white' }}>
+                                        <Button color="inherit" sx={{ mx: 1 }} key={index}>
+                                            <Typography key={index} sx={{ flexGrow: 1, fontWeight: 'bold' }} variant="h6">{item.name}</Typography>
+                                        </Button>
+                                    </NavLink>
+                                    :
+                                    <NavLink to={item.href} key={index}>
+                                        <Button color="inherit" sx={{ mx: 1 }} href={item.href} key={index}>
+                                            <Typography key={index} sx={{ flexGrow: 1, color: 'lightgrey' }} variant="h6">{item.name}</Typography>
+                                        </Button>
+                                    </NavLink>
                         )
                     )
                 })}
