@@ -41,12 +41,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <CssBaseline />
-        <Box sx={{ px: 5, py: 5 }}>
-          <Header />
-        </Box>
-        <Box sx={{ px: 5 }}>
-          {children}
-        </Box>
+        <CartProvider>
+          <ProductsProvider>
+            <Box sx={{ px: 5, py: 5 }}>
+              <Header />
+            </Box>
+            <Box sx={{ px: 5 }}>
+              {children}
+            </Box>
+          </ProductsProvider>
+        </CartProvider>
+
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -55,12 +60,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 import ProductsProvider from "./Context/ProductsContext";
+import CartProvider from "./Context/CartContext";
 
 export default function App() {
   return (
-    <ProductsProvider>
-      <Outlet />
-    </ProductsProvider>
+    <Outlet />
   )
 }
 

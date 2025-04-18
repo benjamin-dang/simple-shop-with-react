@@ -2,6 +2,8 @@ import { AppBar, Toolbar, Typography, Box, Grid, TextField, InputBase, Button } 
 import { styled, alpha } from "@mui/material/styles";
 import SearchIcon from '@mui/icons-material/Search';
 import { NavLink, useLocation } from "react-router";
+import { useContext } from "react";
+import { CartContext } from "~/Context/CartContext";
 
 const menueItems = [
     {
@@ -66,6 +68,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const Header = () => {
 
     const location = useLocation();
+    const { cart } = useContext(CartContext);
 
     return (
         <AppBar position="sticky" sx={{ borderRadius: 50 }} >
@@ -88,14 +91,25 @@ const Header = () => {
                                     />
                                 </Search>
                                 : location.pathname === item.href ?
-                                    <NavLink to={item.href} key={index} style={{ color: 'white' }}>
-                                        <Button color="inherit" sx={{ mx: 1 }} key={index}>
+                                    <NavLink to={item.href} key={index} style={{ color: 'white', textDecoration: 'none' }}>
+
+                                        <Button color="inherit" sx={{ mx: 1, positio: 'relative' }} key={index}>
+                                            {item.name === 'Cart' && cart.totalItems > 0 &&
+                                                <Typography position={'absolute'} top={-3} zIndex={100} right={-3} sx={{ color: 'white', backgroundColor: 'red', width: '25px', aspectRatio: 1, m: 0, p: 0 }} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={50} fontSize={'1rem'}>
+                                                    {cart.totalItems}
+                                                </Typography>
+                                            }
                                             <Typography key={index} sx={{ flexGrow: 1, fontWeight: 'bold' }} variant="h6">{item.name}</Typography>
                                         </Button>
                                     </NavLink>
                                     :
                                     <NavLink to={item.href} key={index}>
                                         <Button color="inherit" sx={{ mx: 1 }} href={item.href} key={index}>
+                                            {item.name === 'Cart' && cart.totalItems > 0 &&
+                                                <Typography position={'absolute'} top={-3} zIndex={100} right={-3} sx={{ color: 'white', backgroundColor: 'red', width: '25px', aspectRatio: 1, m: 0, p: 0 }} display={'flex'} justifyContent={'center'} alignItems={'center'} borderRadius={50} fontSize={'1rem'}>
+                                                    {cart.totalItems}
+                                                </Typography>
+                                            }
                                             <Typography key={index} sx={{ flexGrow: 1, color: 'lightgrey' }} variant="h6">{item.name}</Typography>
                                         </Button>
                                     </NavLink>

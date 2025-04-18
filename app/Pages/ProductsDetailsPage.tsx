@@ -3,6 +3,9 @@ import { useContext, useEffect } from "react";
 import { ProductsContext } from "~/Context/ProductsContext";
 import { PRODUCTS_ACTION_TYPES } from "~/Reducer/productsRedcuer";
 
+import { CartContext } from "~/Context/CartContext";
+import { CART_ACTION_TYPES } from "~/Reducer/cartReducer";
+
 import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, Box, Button } from "@mui/material";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import axios from "axios";
@@ -19,6 +22,7 @@ const client = axios.create({
 const ProductsDetailsPage = () => {
     const { id } = useParams();
     const { products, dispatchProducts } = useContext(ProductsContext);
+    const { dispatchCart } = useContext(CartContext);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -41,6 +45,28 @@ const ProductsDetailsPage = () => {
 
     const selectedProduct = products.products.find((product) => product.id === Number(id));
 
+    const handleAddToCart = () => {
+        console.log('Adding product to cart: ', selectedProduct);
+        dispatchCart({
+            type: CART_ACTION_TYPES.ADD_TO_CART,
+            payload:
+            {
+                product: selectedProduct
+            }
+        })
+    }
+
+    const handleRemoveFromCart = () => {
+        console.log('Removing product from cart: ', selectedProduct);
+        dispatchCart({
+            type: CART_ACTION_TYPES.REMOVE_FROM_CART,
+            payload:
+            {
+                product: selectedProduct
+            }
+        })
+    }
+
     return (
         <>
             {products.loaded && (
@@ -48,7 +74,7 @@ const ProductsDetailsPage = () => {
                     <Grid alignSelf={'start'}>
                         <NavLink to={'/products'} style={{ textDecoration: 'none', color: 'black' }}>
                             <ArrowBackIcon
-                            fontSize="large"
+                                fontSize="large"
                             />
                         </NavLink>
                         <Typography variant="h4" component='h1' gutterBottom flexGrow={1}>
@@ -67,8 +93,8 @@ const ProductsDetailsPage = () => {
                         </Typography>
                     </Grid>
                     <Grid container alignItems={'center'} justifyContent={'center'} mt={5}>
-                        <Button sx={{ mx: 4 }} variant="outlined" color="primary">Add to Cart</Button>
-                        <Button sx={{ mx: 4, color: 'grey' }}>Remove from Cart</Button>
+                        <Button sx={{ mx: 4 }} variant="outlined" color="primary" onClick={handleAddToCart}>Add to Cart</Button>
+                        <Button sx={{ mx: 4, color: 'grey' }} onClick={handleRemoveFromCart}>Remove from Cart</Button>
                     </Grid>
                 </Grid>
             )}
