@@ -1,5 +1,6 @@
 import { Grid, Typography, Card, CardMedia, CardContent, CardActionArea, CardActions, Box } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
+import { NavLink } from "react-router";
 import axios from "axios";
 
 import { ProductsContext } from "../Context/ProductsContext";
@@ -59,20 +60,22 @@ const HomePage = () => {
                     return (
                         <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
                             <Card sx={{ my: 2, mx: 1 }}>
-                                <CardActionArea >
-                                    <CardMedia
-                                        component={'img'}
-                                        src={product.image}
-                                        alt={product.title}
-                                        height={240}
-                                        sx={{ objectFit: 'contain' }}
-                                    />
-                                    <CardContent>
-                                        <Typography gutterBottom>
-                                            {product.title}
-                                        </Typography>
-                                    </CardContent>
-                                </CardActionArea>
+                                <NavLink to={'/products/' + product.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <CardActionArea >
+                                        <CardMedia
+                                            component={'img'}
+                                            src={product.image}
+                                            alt={product.title}
+                                            height={240}
+                                            sx={{ objectFit: 'contain' }}
+                                        />
+                                        <CardContent>
+                                            <Typography gutterBottom>
+                                                {product.title}
+                                            </Typography>
+                                        </CardContent>
+                                    </CardActionArea>
+                                </NavLink>
                             </Card>
                         </Grid>
                     )

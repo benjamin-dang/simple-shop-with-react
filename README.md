@@ -1,4 +1,4 @@
-# Simple Shop with React
+# Simple Shop with React - no Code Vibing
 
 This project will be a very basic Web Shop created with the follwing technilogies: 
 

@@ -68,7 +68,7 @@ const ProductsDetailsPage = () => {
                     </Grid>
                     <Grid container alignItems={'center'} justifyContent={'center'} mt={5}>
                         <Button sx={{ mx: 4 }} variant="outlined" color="primary">Add to Cart</Button>
-                        <Button sx={{ mx: 4, color: 'grey' }}>Remove <form action=""></form> Cart</Button>
+                        <Button sx={{ mx: 4, color: 'grey' }}>Remove from Cart</Button>
                     </Grid>
                 </Grid>
             )}
