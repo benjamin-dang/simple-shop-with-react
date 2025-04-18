@@ -30,6 +30,8 @@ export default function productsReducer(state, action) {
         case PRODUCTS_ACTION_TYPES.SORT_BY_PRICE_ASC:
             return {
                 ...state,
+                // sort determins the order of the array, -1 means first element should come before the second element, 
+                // 0 means equal, -1 means should come after 2. valu
                 products: state.products.sort((a, b) => a.price - b.price),
                 sortedBy: PRODUCTS_ACTION_SORT_TYPES.ASC_PRICE,
             };
@@ -43,6 +45,8 @@ export default function productsReducer(state, action) {
         case PRODUCTS_ACTION_TYPES.SORT_BY_NAME_ASC:
             return {
                 ...state,
+                // localcomppare return -1 if element should be before the other (input), 0 if equal and 
+                // 1 if element should be after
                 products: state.products.sort((a, b) => a.title.localeCompare(b.title)),
                 sortedBy: PRODUCTS_ACTION_SORT_TYPES.ASC_NAME,
             };
@@ -61,6 +65,6 @@ export default function productsReducer(state, action) {
         // Add more cases for other actions as needed
         default:
             return state;
-            }
-    };
+    }
+};
 

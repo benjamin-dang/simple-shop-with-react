@@ -19,7 +19,7 @@ const HomePage = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (products.loaded) { 
+            if (products.loaded) {
                 console.log('Products already loaded');
                 return;
             };
@@ -53,8 +53,8 @@ const HomePage = () => {
                     We have a wide range of products for you to explore
                 </Typography>
             </Grid>
-            <Grid container alignItems={'center'} justifyContent={'center'} sx={{my: 5}}>
-                {products.products.map((product, index) => {
+            <Grid container alignItems={'center'} justifyContent={'center'} sx={{ my: 5 }}>
+                {products.loaded && products.products.map((product, index) => {
                     if (index > 2) return;
                     return (
                         <Grid key={index} size={{ xs: 12, sm: 6, md: 4 }}>
