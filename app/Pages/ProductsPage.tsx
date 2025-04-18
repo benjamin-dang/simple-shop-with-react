@@ -1,7 +1,8 @@
 import { useEffect, useContext } from "react";
-import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, Box } from "@mui/material";
+import { Grid, Card, CardActionArea, CardMedia, CardContent, Typography, Box, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { ProductsContext } from "~/Context/ProductsContext";
 import { PRODUCTS_ACTION_TYPES } from "~/Reducer/productsRedcuer";
+import { PRODUCTS_ACTION_SORT_TYPES } from "~/Reducer/productsRedcuer";
 
 import { client } from "~/Pages/HomePage";
 
@@ -33,6 +34,27 @@ const ProductsPage = () => {
         fetchData();
     }, [])
 
+    const handleSortCahange = (event) => {
+        const { value } = event.target;
+
+        switch (value) {
+            case PRODUCTS_ACTION_SORT_TYPES.ASC_PRICE:
+                dispatchProducts({ type: PRODUCTS_ACTION_TYPES.SORT_BY_PRICE_ASC });
+                break;
+            case PRODUCTS_ACTION_SORT_TYPES.DESC_PRICE:
+                dispatchProducts({ type: PRODUCTS_ACTION_TYPES.SORT_BY_PRICE_DESC });
+                break;
+            case PRODUCTS_ACTION_SORT_TYPES.ASC_NAME:
+                dispatchProducts({ type: PRODUCTS_ACTION_TYPES.SORT_BY_NAME_ASC });
+                break;
+            case PRODUCTS_ACTION_SORT_TYPES.DESC_NAME:
+                dispatchProducts({ type: PRODUCTS_ACTION_TYPES.SORT_BY_NAME_DESC });
+                break;
+            default:
+                break;
+        }
+    }
+
     return (
         <Grid container direction={'column'} sx={{ px: 2 }}>
             <Grid>
@@ -40,10 +62,24 @@ const ProductsPage = () => {
                     Browser through our products
                 </Typography>
             </Grid>
-            <Grid>
+            <Grid container>
                 <Typography variant="h6" component='h2' gutterBottom flexGrow={1}>
                     We have a wide range of products for you to explore
                 </Typography>
+                <FormControl>
+                    <InputLabel>Sort</InputLabel>
+                    <Select
+                     label={'Sort'}
+                     value={products.sortedBy}
+                     onChange={handleSortCahange}   
+                    >
+                        <MenuItem value={PRODUCTS_ACTION_SORT_TYPES.ASC_PRICE}>ASC PRICE</MenuItem>
+                        <MenuItem value={PRODUCTS_ACTION_SORT_TYPES.DESC_PRICE}>DESC ASC PRICE</MenuItem>
+                        <MenuItem value={PRODUCTS_ACTION_SORT_TYPES.ASC_NAME}>Name A-Z</MenuItem>
+                        <MenuItem value={PRODUCTS_ACTION_SORT_TYPES.DESC_NAME}>Name Z-A</MenuItem>
+                    </Select>
+                </FormControl>
+
             </Grid>
             <Grid container alignItems={'center'} sx={{ my: 5 }}>
                 {products.products.map((product, index) => {
