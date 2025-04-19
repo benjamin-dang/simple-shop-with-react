@@ -8,8 +8,14 @@ This project will be a very basic Web Shop created with the follwing technilogie
 - Vite
 - Axios
 
-Goal of this project is to create a goog looking and good feeling Webshop that also show cases
+Goal of this project is to create a basic Webshop that also show cases
 the React basics the author has aquired over the course of his certifcates via Coursera and self thought programming
+
+- React Router
+- Vite
+- useState/Effect
+- Context API
+- MUI
 
 
 ## Project init
