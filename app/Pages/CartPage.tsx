@@ -91,7 +91,7 @@ const CartPage = () => {
                                 <DialogContent>
                                     <DialogContentText>
                                         You are about to checkout. Current cart will be cleared and you will be redirected to the payment page.
-                                        Total price is {cart.totalPrice}$.
+                                        Total price is {cart.totalPrice.toFixed(2)}$.
                                     </DialogContentText>
                                     <Button color='grey' onClick={handleCancel}>Cancel</Button>
                                     <Button onClick={handlePay}>Checkout</Button>

@@ -21,6 +21,13 @@ export default function cartReducer(state, action){
                 totalItems: state.totalItems + 1,
             };
         case CART_ACTION_TYPES.REMOVE_FROM_CART:
+            
+            const productInCart = state.cart.find((product) => product.id === action.payload.product.id)
+            if (!productInCart) {
+                console.log('Product not in cart');
+                return state;
+            }
+
             return {
                 ...state,
                 cart: state.cart.filter((product) => product.id !== action.payload.product.id),
